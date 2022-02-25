@@ -1,0 +1,26 @@
+{
+	"name": "Content Filter",
+	"version": "1.0.0",
+	"description": "This extension blocks public viewing of Posts that contain Adult content. Requires a user to be logged in to view posts that contain Level 3 Violence, Sex, or Language. Removes the Post Body from the RSS Feed. Uses the RPG Rating system at https://rpgrating.com/",
+	"url": "https://github.com/reecesavage/nova-ext-content-filter",
+	"author": {
+		"name": "Sim Central",
+		"email": "info@simcentral.org",
+		"url": "https://simcentral.org"
+	},
+	"folder": "nova_ext_content_filter",
+	"requiredExtensions": [
+		"jquery"
+	],
+	"configFiles": [
+		"init.php",
+		"config.json"
+	],
+	"upgradeable": "yes",
+	"replaceConfigFiles":"yes",
+	"incompatibleExtensions":[ 
+            
+	],"uninstall":[ 
+          
+	]
+}
