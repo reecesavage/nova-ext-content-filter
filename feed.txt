@@ -1,0 +1,73 @@
+
+	
+	public function posts()
+	{
+		// load the resources
+		$this->load->model('posts_model', 'posts');
+		$this->load->model('missions_model', 'mis');
+		$this->load->helper('xml');
+		$this->load->library('session');
+		
+		$posts = $this->posts->get_post_list(null, 'desc', $this->config->item('rss_num_entries'), 0, 'activated');
+		
+		// need an empty array to prevent errors
+		$data = array();
+		
+		if ($posts->num_rows() > 0)
+		{ 
+			$i = 1;
+			foreach ($posts->result() as $post)
+			{
+
+
+				$data['entries'][$i]['link'] = site_url('sim/viewpost/'.$post->post_id);
+				$data['entries'][$i]['title'] = $post->post_title;
+				$data['entries'][$i]['date'] = $post->post_date;
+				
+				/* grab the authors and put them in an array */
+				$authors = explode(',', $post->post_authors);
+				
+				foreach ($authors as $value)
+				{ /* grab the character names for each author */
+					$authors['full_names'][] = $this->char->get_character_name($value, TRUE);
+				}
+				
+				/* break the array into a string */
+				$post_header = ucfirst(lang('labels_a') .' '. lang('global_missionpost') .' '. lang('labels_by'));
+				$post_header.= ' '. implode(', ', $authors['full_names']) ."\r\n\r\n";
+				$post_header.= "<b>". ucfirst(lang('global_mission')) ."</b> - ". $this->mis->get_mission($post->post_mission, 'mission_title') ."\r\n";
+				$post_header.= ( ! empty($post->post_location)) ? "<b>". ucfirst(lang('labels_location')) ."</b> - ". $post->post_location ."\r\n" : '';
+				$post_header.= ( ! empty($post->post_timeline)) ? "<b>". ucfirst(lang('labels_timeline')) ."</b> - ". $post->post_timeline ."\r\n" : '';
+				$post_header.= "\r\n";
+				
+               $data['entries'][$i]['content'] = nl2br($post_header . $post->post_content);
+
+              
+				if($post->language==3||$post->sex==3||$post->violence==3)
+      		   {
+          if(!Auth::is_logged_in())   
+          {  
+          	$post->post_content='Due to material that may not be appropriate for all ages, you must be a member and logged in to view this content.';
+            $data['entries'][$i]['content'] =  nl2br($post_header . $post->post_content); 
+          }
+         
+         }
+
+
+				
+				
+				++$i;
+			}
+		}
+		
+		// set the header
+		header("Content-Type: application/rss+xml");
+		
+		$this->_regions['items'] = Location::view('_base/rss_items', null, null, $data);
+		
+		Template::assign($this->_regions);
+		
+		Template::render();
+	}
+
+	}

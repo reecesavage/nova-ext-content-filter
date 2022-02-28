@@ -96,10 +96,44 @@ class __extensions__nova_ext_content_filter__Manage extends Nova_controller_admi
 
     }
 
+   
+
+  public function writeFeedCode()
+  {   
+          
+        $extControllerPath = APPPATH.'controllers/feed.php';
+        if ( !file_exists( $extControllerPath ) ) { 
+        return [];
+        }
+        $controllerFile = file_get_contents( $extControllerPath );
+        $pattern = '/public\sfunction\sposts/';
+        if (!preg_match($pattern, $controllerFile)) {
+       $writeFilePath = dirname(__FILE__).'/../feed.txt';
+        if ( !file_exists( $writeFilePath ) ) { 
+           return [];
+        }
+        $file = file_get_contents( $writeFilePath );
+
+       $contents = file($extControllerPath, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
+      $size = count($contents);
+      $contents[$size-1] = "\n".$file;
+      $temp = implode("\n", $contents);
+
+     
+      file_put_contents($extControllerPath, $temp);
+         
+         return true;
+        }
+      return false;
+              
+
+
+  }
+
 
      public function config()
     {    
-         
+           $data['feed']=true;
           Auth::check_access('site/settings');
         $data['title'] = 'Content Filter';
         $requiredCharacterFields['post'] = ['language','sex','violence'];
@@ -107,6 +141,53 @@ class __extensions__nova_ext_content_filter__Manage extends Nova_controller_admi
  
        
 
+        $extControllerPath = APPPATH.'controllers/feed.php';
+         
+        if ( !file_exists( $extControllerPath ) ) { 
+        return [];
+        }
+        $file = file_get_contents( $extControllerPath );
+        $pattern = '/public\sfunction\sposts/';
+        if (!preg_match($pattern, $file)) {
+           $data['feed']=false;
+
+
+
+        if(isset($_POST['submit']) && $_POST['submit']=='feed')
+        {
+             
+            if($this->writeFeedCode())
+            {
+              $data['feed']=true;
+                $message = sprintf(
+               lang('flash_success'),
+          // TODO: i18n...
+              'Rss Feed Function',
+          lang('actions_added'),
+          ''
+        );
+            }else {
+                    $message = sprintf(
+               lang('flash_failure'),
+          // TODO: i18n...
+              'Rss Feed Function',
+          lang('actions_added'),
+          ''
+        );
+            }
+         
+
+        $flash['status'] = 'success';
+        $flash['message'] = text_output($message);
+
+        $this->_regions['flash_message'] = Location::view('flash', $this->skin, 'admin', $flash);
+
+        }
+        }
+
+
+
+   
         if ($list = $this->saveColumn($requiredCharacterFields))
         {
             $requiredCharacterFields = $list['post'];

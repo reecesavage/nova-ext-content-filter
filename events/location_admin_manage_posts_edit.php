@@ -1,16 +1,11 @@
-<?php
- 
+<?php 
 
-
-
-
-$this->event->listen(['location', 'view', 'data', 'admin', 'write_missionpost'], function($event){
-
-
-  $id = (is_numeric($this->uri->segment(3))) ? $this->uri->segment(3) : false;
-  $post = $id ? $this->posts->get_post($id) : null;
+$this->event->listen(['location', 'view', 'data', 'admin', 'manage_posts_edit'], function($event){
   
- 
+
+   $id = (is_numeric($this->uri->segment(4))) ? $this->uri->segment(4) : false;
+  $post = $id ? $this->posts->get_post($id) : null;
+    
   $this->config->load('extensions');
   $extensionsConfig = $this->config->item('extensions');
 
@@ -50,11 +45,25 @@ $this->event->listen(['location', 'view', 'data', 'admin', 'write_missionpost'],
     '3'=>'Explicit violence is permitted.',
   ];
 
+   
 
+    if($post->language!=100)
+         {
+           $json['default']['language']=$post->language;
+         }
+          if($post->sex!=100)
+         {
+           $json['default']['sex']=$post->sex;
+         }
+          if($post->violence!=100)
+         {
+           $json['default']['violence']=$post->violence;
+         }
 
    for($i=0;$i<=3;$i++)
    {  
 
+        
 
           $event['data']['language']['label'][$i] = $lanArray[$i];
           $event['data']['language']['name'][$i] = 'language';
@@ -68,7 +77,7 @@ $this->event->listen(['location', 'view', 'data', 'admin', 'write_missionpost'],
    }
 
    for($i=0;$i<=3;$i++)
-   {
+   {   
           $event['data']['sex']['label'][$i] = $sexArray[$i];
          $event['data']['sex']['name'][$i] = 'sex';
          $event['data']['sex']['value'][$i] = $i;
@@ -101,27 +110,19 @@ $this->event->listen(['location', 'view', 'data', 'admin', 'write_missionpost'],
     
   
 
-  
+
+
 });
-$this->event->listen(['location', 'view', 'output', 'admin', 'write_missionpost'], function($event){
-  switch($this->uri->segment(4)){
-    case 'view':
-      break;
-    default:
-     
-    $this->config->load('extensions');
+
+$this->event->listen(['location', 'view', 'output', 'admin', 'manage_posts_edit'], function($event){
 
 
-    $event['output'] .= $this->extension['jquery']['generator']
-                      ->select('[name="tags"]')->closest('p')
+$event['output'] .= $this->extension['jquery']['generator']
+                      ->select('[name="post_tags"]')->closest('p')
                       ->after(
                         $this->extension['nova_ext_content_filter']
                              ->view('form', $this->skin, 'admin', $event['data'])
                       );
 
 
-
-      
- }
-                  
 });

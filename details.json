@@ -13,14 +13,13 @@
 		"jquery"
 	],
 	"configFiles": [
-		"init.php",
-		"config.json"
+		
 	],
 	"upgradeable": "yes",
 	"replaceConfigFiles":"yes",
 	"incompatibleExtensions":[ 
             
 	],"uninstall":[ 
-          
+           "application/controllers/feed.php"  
 	]
 }
