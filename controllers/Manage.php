@@ -215,16 +215,16 @@ class __extensions__nova_ext_content_filter__Manage extends Nova_controller_admi
         if (isset($_POST['submit']) && $_POST['submit'] == 'Submit')
         {
               
-
-            
+  
+         
 
               $data['jsons']['setting']['language'] = $_POST['language'];
               $data['jsons']['setting']['sex'] = $_POST['sex'];
               $data['jsons']['setting']['violence'] = $_POST['violence'];
 
-               $data['jsons']['default']['language'] = $_POST['default_language'];
-              $data['jsons']['default']['sex'] = $_POST['default_sex'];
-              $data['jsons']['default']['violence'] = $_POST['default_violence'];
+               $data['jsons']['default']['language'] = isset($_POST['default_language'])?$_POST['default_language']:'';
+              $data['jsons']['default']['sex'] = isset($_POST['default_sex'])?$_POST['default_sex']:'';
+              $data['jsons']['default']['violence'] = isset($_POST['default_violence'])?$_POST['default_violence']:'';
               
 
             $jsonEncode = json_encode($data['jsons'], JSON_PRETTY_PRINT);

@@ -20,6 +20,6 @@
 	"incompatibleExtensions":[ 
             
 	],"uninstall":[ 
-           "application/controllers/feed.php"  
+          
 	]
 }

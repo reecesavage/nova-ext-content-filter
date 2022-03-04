@@ -1,12 +1,12 @@
 {
     "setting": {
-        "language": "2",
-        "sex": "0",
+        "language": "3",
+        "sex": "3",
         "violence": "3"
     },
     "default": {
-        "language": "2",
-        "sex": "1",
+        "language": "3",
+        "sex": "3",
         "violence": "1"
     }
 }

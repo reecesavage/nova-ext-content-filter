@@ -30,14 +30,16 @@ $this->event->listen(['location', 'view', 'data', 'main', 'sim_viewpost'], funct
            $json['default']['violence']=$post->violence;
          }
 
-         
+           $post->post_location=$event['data']['location'];
+           $event['data']['location'] = "$post->post_location <br> <b>Content Level : </b>".$json['default']['language'].$json['default']['sex'].$json['default']['violence'];
+
 
          if($json['default']['language']==3||$json['default']['sex']==3||$json['default']['violence']==3)
          {
 
           if(!Auth::is_logged_in())   
           {
-             $event['data']['content']= "Due to material that may not be appropriate for all ages, you must be a member and logged in to view this content."; 
+             $event['data']['content']= "This post contains content viewable only to persons 18 years of age or older, and is not available for Public viewing."; 
           }
          
          }

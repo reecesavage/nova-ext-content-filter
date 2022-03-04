@@ -208,6 +208,110 @@
    <div class="email-message"><br>Rss Feed located, and up to date.</div>
 <?php } ?>
 
+<script>
+
+$(document).ready(function () {
+
+
+  $(".default_language").click(function () {
+
+    var lan= $('.language:checked').val();
+
+    var deflan= $(this).val();
+	if(lan<deflan)
+	{
+	 $(this).prop('checked',false);
+	 alert('Default language can not be greater than max level');
+	}
+
+  });
+
+
+
+
+
+
+  $(".default_sex").click(function () {
+
+    var sex= $('.sex:checked').val();
+
+    var defsex= $(this).val();
+	if(sex<defsex)
+	{
+	 $(this).prop('checked',false);
+	 alert('Default sex can not be greater than max level');
+	}
+
+  });
+  $(".default_violence").click(function () {
+
+    var vio= $('.violence:checked').val();
+
+    var defvio= $(this).val();
+	if(vio<defvio)
+	{
+	 $(this).prop('checked',false);
+	 alert('Default violence can not be greater than max level');
+	}
+
+  });
+
+
+
+
+
+
+
+
+  $(".language").click(function () {
+
+    var deflan= $('.default_language:checked').val();
+
+    var lan= $(this).val();
+	if(lan<deflan)
+	{
+	 $('.default_language').prop('checked',false);
+	
+	}
+
+  });
+
+
+
+
+
+
+  $(".sex").click(function () {
+
+    var defsex= $('.default_sex:checked').val();
+
+    var sex= $(this).val();
+	if(sex<defsex)
+	{
+	 $('.default_sex').prop('checked',false);
+	
+	}
+
+  });
+  $(".violence").click(function () {
+
+    var defvio= $('.default_violence:checked').val();
+
+    var vio= $(this).val();
+	if(vio<defvio)
+	{
+	 $('.default_violence').prop('checked',false);
+	
+	}
+
+  });
+
+   });
+
+
+
+</script>
+
 
 
 
