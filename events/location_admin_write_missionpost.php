@@ -26,7 +26,8 @@ $this->event->listen(['location', 'view', 'data', 'admin', 'write_missionpost'],
 
   switch($this->uri->segment(4)){
   
- 
+
+
     default:
    
    
@@ -51,7 +52,23 @@ $this->event->listen(['location', 'view', 'data', 'admin', 'write_missionpost'],
   ];
 
 
+   if(isset($post))
+   {
+   
+     if($post->language!=100)
+         {
+           $json['default']['language']=$post->language;
+         }
+          if($post->sex!=100)
+         {
+           $json['default']['sex']=$post->sex;
+         }
+          if($post->violence!=100)
+         {
+           $json['default']['violence']=$post->violence;
+         }
 
+   }
    for($i=0;$i<=3;$i++)
    {  
 
