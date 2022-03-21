@@ -24,13 +24,16 @@ $config['extensions']['enabled'][] = 'nova_ext_content-filter';
 
 - Navigate to your Admin Control Panel
 - Choose Content Filter under Manage Extensions
-- TBD
+- Click Add Column to add the required column to the SQL Table.
+- Click Update Controller to update the required Nova files.
+- Set your Max Content Level and Default Content Level.
+- Click Submit.
 
 Installation is now complete!
 
 ## Usage
 
-- TBD
+- When writing or editing a mission post simply set the content level of the post before posting. The content level will save with post saves. New posts start with the default level set by the Game Manager.
 
 ## Issues
 
