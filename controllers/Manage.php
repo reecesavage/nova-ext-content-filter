@@ -101,7 +101,7 @@ class __extensions__nova_ext_content_filter__Manage extends Nova_controller_admi
   public function writeFeedCode()
   {   
           
-        $extControllerPath = APPPATH.'controllers/feed.php';
+        $extControllerPath = APPPATH.'controllers/Feed.php';
         if ( !file_exists( $extControllerPath ) ) { 
         return [];
         }
@@ -141,7 +141,7 @@ class __extensions__nova_ext_content_filter__Manage extends Nova_controller_admi
  
        
 
-        $extControllerPath = APPPATH.'controllers/feed.php';
+        $extControllerPath = APPPATH.'controllers/Feed.php';
          
         if ( !file_exists( $extControllerPath ) ) { 
         return [];
